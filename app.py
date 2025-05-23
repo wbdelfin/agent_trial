@@ -52,7 +52,7 @@ with st.sidebar:
 # Messages in the conversation
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"], unsafe_allow_html=True)
+        st.markdown((message["content"]).replace("\\n","\n"), unsafe_allow_html=True)
 
 # Chat input that invokes the agent
 if prompt := st.chat_input():
@@ -137,7 +137,7 @@ if prompt := st.chat_input():
             st.session_state.messages.append({"role": "assistant", "content": output_text})
             st.session_state.citations = response["citations"]
             st.session_state.trace = response["trace"]
-            st.markdown(output_text, unsafe_allow_html=True)
+            st.markdown(output_text.replace("\\n", "\n"), unsafe_allow_html=True)
 
 trace_types_map = {
     "Pre-Processing": ["preGuardrailTrace", "preProcessingTrace"],
